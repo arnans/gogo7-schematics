@@ -7,8 +7,9 @@ Schematic description of the GoGo Board 7 Hardware
 
 - [Processor](#processor)
 - [Bootloader](#bootloader)
-- [Analog Input](#analog-input)
 - [Joystick](#joystick)
+- [Analog Input](#analog-input)
+
 
 ---
 
@@ -34,6 +35,20 @@ You can also write your own firmware using the Arduino IDE. The GoGo Board shoul
 
 ---
 
+## Joystick
+
+The GoGo Board uses a 5-direction joystick (up, down, left, right, press) to control the built-in screen.  
+A collection of resistors generates different voltages for each direction. The joystick is connected to GPIO4.
+
+<img src="images/joystick.png" width="400">
+
+A 5.1K pull-up resistor keeps the GPIO high when nothing is pressed.  
+When the joystick is activated, each direction has a pull-down resistor with a unique value.  
+The pull-up and pull-down combination forms a voltage divider, allowing each direction to generate a unique input voltage on the GPIO pin.
+
+
+
+
 ## Analog Input
 
 <img src="images/analog_input.png" width="400">
@@ -44,7 +59,7 @@ The GoGo Board provides 4 analog inputs via white 4-pin Grove ports. Each port p
 - Signal
 
 **Voltage Divider:**  
-Since the ESP32-S3 uses 3.3V for its ADC inputs, a voltage divider circuit scales down the input signal from 5V to 3.3V.
+Since the ESP32-S3 uses 3.3V for its ADC inputs, a voltage divider circuit scales down the input signal from 5V to 3.3V. This circuit consists of two resistors 11K, 22K ohmes. This divider circuit also pulls down the AN GPIO when no sensor is connected, making the readout always zero.
 
 Here are the pins used for the GoGo sensor ports:
 
@@ -57,13 +72,12 @@ Here are the pins used for the GoGo sensor ports:
 
 ---
 
-## Joystick
+## Built-in Sensors
 
-The GoGo Board uses a 5-direction joystick (up, down, left, right, press) to control the built-in screen.  
-A collection of resistors generates different voltages for each direction, all read on GPIO4.
+The GoGo Board 7 has five built-in sensors, four of which are connected via an I2C bus. Only the Infrared receiver is connected to a GPIO.
 
-<img src="images/joystick.png" width="400">
+| Sensor                     | Pin  | Description                                                     |
+|----------------------------|------|-----------------------------------------------------------------|
+| Accelerometer & Gyroscope  | I2C  | A LSM6DS3TR-C offers a low power consumption measurements for both acceleration and gyration| 
 
-As shown in the schematic above, a 5.1K pull-up resistor keeps the GPIO high when nothing is pressed.  
-The line is pulled to ground via the resistor associated with each direction pressed.  
-The combination of pull-up and pull-down resistors forms a voltage divider, allowing each direction to generate a unique input voltage on the GPIO pin.
+
