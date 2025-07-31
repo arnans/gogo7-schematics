@@ -32,6 +32,8 @@ Schematic description of the GoGo Board 7 hardware.
 - [9. Tasmota Core](#9-tasmota-core)
   - [9.1 GPIO Ports](#91-gpio-ports)
   - [9.2 I2C Port](#92-i2c-port)
+- [10. RGB LEDs](#10-rgb-leds)
+- [11. 1.8 Inch LCD Display](#11-18-inch-lcd-display)
 
 ---
 
@@ -269,5 +271,33 @@ There are two green Grove ports that expose two GPIOs each.
 <img width="314" height="170" alt="image" src="https://github.com/user-attachments/assets/662d0d71-d0d9-4275-b125-e2deffde00f3" />
 
 This purple Grove port exposes the I2C bus.
+
+---
+
+## 10. RGB LEDs
+
+<img width="781" height="786" alt="image" src="https://github.com/user-attachments/assets/9e7b2acf-8857-4a0e-952a-a755b8fb0efd" />
+
+The GoGo board uses 15 daisy-chained WS2812B RGB LEDs to visualize various board functionalities.
+- Twelve 2.1 mm LEDs (2121 Package) are used for the Analog, Servo, DC motor ports.
+- Three 3.5 mm LEDs (3535 Package) are used for the "code run" animation above the LCD display.
+
+The driving signal is connected to the NEOPIXELS pin on the ESP32-S3.
+
+Additional components:
+- There is a 3.3 to 5 V level shifter (74AHCT1G125GV) for stable logic signals.
+- A 470 Ohm noise rejection serial resistor is placed in the data line.
+
+---
+
+## 11. 1.8 Inch LCD Display
+
+<img width="419" height="299" alt="image" src="https://github.com/user-attachments/assets/405d1d10-0d78-42d0-9b1b-7fc99acd0d5d" />
+
+The GoGo Board uses a 1.8 inch TFT LCD screen with an SPI serial interface connected to the ESP32-S3. The driver chip is the ST7735S.
+
+<img width="459" height="242" alt="image" src="https://github.com/user-attachments/assets/3528b0c6-3805-4983-a07c-031bb8fac398" />
+
+There is a brightness dimming circuit via a MOSFET driver, allowing software control of screen brightness. The LCD_BRIGHTNESS pin is connected to the ESP32-S3.
 
 ---
