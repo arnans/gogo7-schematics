@@ -37,6 +37,11 @@ Schematic description of the GoGo Board 7 hardware.
 
 ---
 
+<img width="843" height="527" alt="image" src="https://github.com/user-attachments/assets/fc982578-030b-44f5-9e06-8051a504bcbb" />
+<img width="795" height="558" alt="image" src="https://github.com/user-attachments/assets/4a9b0fb2-7955-47f6-9b6a-35d91d4d2aec" />
+
+
+
 ## 1. Processor
 
 <img width="909" height="561" alt="image" src="https://github.com/user-attachments/assets/fed31f8d-e783-48cf-9a7e-258974682acd" />
