@@ -8,31 +8,36 @@ Schematic description of the GoGo Board 7 hardware.
 
 ## Table of Contents
 
-- [Processor](#processor)
-- [Bootloader](#bootloader)
-- [Joystick](#joystick)
-- [Analog Input](#analog-input)
-- [Built-in Sensors](#built-in-sensors)
-  - [List of Built-in Sensors](#list-of-built-in-sensors)
-  - [Accelerometer & Gyroscope](#accelerometer--gyroscope)
-  - [Ambient Light Sensor](#ambient-light-sensor)
-  - [Digital Microphone](#digital-microphone)
-  - [Temperature & Humidity](#temperature--humidity)
-  - [IR Receiver](#ir-receiver)
-  - [IR Transmitter](#ir-transmitter)
-- [DC Motor Port](#dc-motor-port)
-  - [The DRV8837 Driver Circuit](#the-drv8837-driver-circuit)
-  - [The TLC59116IRHBR I2C PWM Driver](#the-tlc59116irhbr-i2c-pwm-driver)
-  - [Chain Port (DC Motor Extension)](#chain-port-dc-motor-extension)
-- [Servo / Relay Port](#servo--relay-port)
-- [Expansion Ports](#expansion-ports)
-  - [I2C Expansion Port](#i2c-expansion-port)
-  - [UART Expansion Port](#uart-expansion-port)
-  - [I/O Expansion Port](#io-expansion-port)
+- [1. Processor](#1-processor)
+- [2. Bootloader](#2-bootloader)
+- [3. Joystick](#3-joystick)
+- [4. Analog Input](#4-analog-input)
+- [5. Built-in Sensors](#5-built-in-sensors)
+  - [5.1 List of Built-in Sensors](#51-list-of-built-in-sensors)
+  - [5.2 Accelerometer & Gyroscope](#52-accelerometer--gyroscope)
+  - [5.3 Ambient Light Sensor](#53-ambient-light-sensor)
+  - [5.4 Digital Microphone](#54-digital-microphone)
+  - [5.5 Temperature & Humidity](#55-temperature--humidity)
+  - [5.6 IR Receiver](#56-ir-receiver)
+  - [5.7 IR Transmitter](#57-ir-transmitter)
+- [6. DC Motor Port](#6-dc-motor-port)
+  - [6.1 The DRV8837 Driver Circuit](#61-the-drv8837-driver-circuit)
+  - [6.2 The TLC59116IRHBR I2C PWM Driver](#62-the-tlc59116irhbr-i2c-pwm-driver)
+  - [6.3 Chain Port (DC Motor Extension)](#63-chain-port-dc-motor-extension)
+- [7. Servo / Relay Port](#7-servo--relay-port)
+- [8. Expansion Ports](#8-expansion-ports)
+  - [8.1 I2C Expansion Port](#81-i2c-expansion-port)
+  - [8.2 UART Expansion Port](#82-uart-expansion-port)
+  - [8.3 I/O Expansion Port](#83-io-expansion-port)
+- [9. Tasmota Core](#9-tasmota-core)
+  - [9.1 GPIO Ports](#91-gpio-ports)
+  - [9.2 I2C Port](#92-i2c-port)
 
 ---
 
-## Processor
+## 1. Processor
+
+<img width="909" height="561" alt="image" src="https://github.com/user-attachments/assets/fed31f8d-e783-48cf-9a7e-258974682acd" />
 
 The GoGo Board uses the ESP32-S3 MCU by Espressif (N16R8 variant: 16 MB flash, 8 MB RAM).  
 This dual-core processor enables the firmware to efficiently handle background tasks.  
@@ -40,7 +45,7 @@ A built-in USB module is used for host communication and firmware flashing.
 
 ---
 
-## Bootloader
+## 2. Bootloader
 
 The GoGo Board does not use a USB-to-serial chip.  
 Firmware updates are performed over USB using the ESP32-S3's internal USB CDC (virtual serial port) bootloader, which is activated by holding the Boot button during power-up.
@@ -53,7 +58,7 @@ You can also program the board using the Arduino IDE (use a generic ESP32-S3 pro
 
 ---
 
-## Joystick
+## 3. Joystick
 
 The GoGo Board features a 5-direction joystick (up, down, left, right, press) connected to GPIO4.  
 Different resistor values generate unique voltages for each direction, read by the ADC.
@@ -65,7 +70,7 @@ Each direction uses a distinct pull-down resistor, forming a voltage divider tha
 
 ---
 
-## Analog Input
+## 4. Analog Input
 
 <img src="images/analog_input.png" width="400">
 
@@ -87,11 +92,11 @@ When no sensor is connected, the divider pulls the analog GPIO low, resulting in
 
 ---
 
-## Built-in Sensors
+## 5. Built-in Sensors
 
 The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
-### List of Built-in Sensors
+### 5.1 List of Built-in Sensors
 
 | Sensor                    | Interface | Model            | Description                                                                                 |
 |---------------------------|-----------|------------------|---------------------------------------------------------------------------------------------|
@@ -103,7 +108,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-### Accelerometer & Gyroscope
+### 5.2 Accelerometer & Gyroscope
 
 <img width="534" height="335" alt="image" src="https://github.com/user-attachments/assets/77a7954a-449b-4b19-9a70-7cc0a5d07fdf" />
 
@@ -112,7 +117,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-### Ambient Light Sensor
+### 5.3 Ambient Light Sensor
 
 <img width="386" height="269" alt="image" src="https://github.com/user-attachments/assets/e9da9e0b-63fe-4960-9178-215e2cbc3c5a" />
 
@@ -123,7 +128,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-### Digital Microphone
+### 5.4 Digital Microphone
 
 <img width="475" height="236" alt="image" src="https://github.com/user-attachments/assets/7fdcc020-47a0-42eb-b797-dc5e47476888" />
 
@@ -132,7 +137,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-### Temperature & Humidity
+### 5.5 Temperature & Humidity
 
 <img width="511" height="267" alt="image" src="https://github.com/user-attachments/assets/300c08ad-b265-48a2-8ad9-702d2d88bf3a" />
 
@@ -141,7 +146,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-### IR Receiver
+### 5.6 IR Receiver
 
 <img width="443" height="200" alt="image" src="https://github.com/user-attachments/assets/1d122b78-355a-4c78-9bf2-2f882731c3d1" />
 
@@ -150,7 +155,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-### IR Transmitter
+### 5.7 IR Transmitter
 
 <img width="594" height="258" alt="image" src="https://github.com/user-attachments/assets/fba83c2d-6a8e-40df-afee-5994e43496e9" />
 
@@ -158,7 +163,7 @@ The GoGo Board 7 includes five built-in sensors: four on I2C, one on GPIO.
 
 ---
 
-## DC Motor Port
+## 6. DC Motor Port
 
 The board provides four DC motor ports, each with a dedicated DRV8837 H-bridge driver (1.8 A peak, 5 V).  
 **Lab tests:** Do not exceed 1 A per channel to avoid overheating.  
@@ -167,7 +172,7 @@ Note: Standard USB power sources are insufficient for all ports at full load.
 
 Motor drivers are controlled by an I2C PWM chip (TLC59116IRHBR) due to limited ESP32 GPIOs.
 
-### The DRV8837 Driver Circuit
+### 6.1 The DRV8837 Driver Circuit
 
 <img width="561" height="265" alt="image" src="https://github.com/user-attachments/assets/2afb4a5d-ceb5-4a2b-bbf6-b54aaeae0308" />
 
@@ -179,7 +184,7 @@ Motor drivers are controlled by an I2C PWM chip (TLC59116IRHBR) due to limited E
 DRV8837 features weak internal pull-downs (~100 kΩ, see datasheet 7.3.3).  
 As the I2C PWM driver is open-drain (logic low only), external 5.1 kΩ pull-ups are used to ensure a strong logic high.
 
-### The TLC59116IRHBR I2C PWM Driver
+### 6.2 The TLC59116IRHBR I2C PWM Driver
 
 <img width="680" height="302" alt="image" src="https://github.com/user-attachments/assets/11f2270a-5c78-4bba-b849-c971ad54590b" />
 
@@ -187,7 +192,7 @@ As the I2C PWM driver is open-drain (logic low only), external 5.1 kΩ pull-up
 - 16 channels: 12 drive the 4 H-bridge chips, 2 handle ESP32-C3 boot/RESET, 2 unused.
 - RESET is wired to ESP32-S3 (M_RESET), allowing reboot of the PWM chip (not used in standard firmware due to high chip reliability).
 
-### Chain Port (DC Motor Extension)
+### 6.3 Chain Port (DC Motor Extension)
 
 <img width="342" height="185" alt="image" src="https://github.com/user-attachments/assets/8ff11924-d15f-4c7f-b99c-f2837b3239ab" />
 
@@ -200,7 +205,7 @@ The PWM chip supports up to 16 unique I2C addresses, allowing expansion up to 64
 
 ---
 
-## Servo / Relay Port
+## 7. Servo / Relay Port
 
 <img width="311" height="482" alt="image" src="https://github.com/user-attachments/assets/d5e8f470-b9ce-4765-90d6-20180f57b8fa" />
 
@@ -211,9 +216,9 @@ These outputs supply 5 V, with current limiting and noise suppression to minim
 
 ---
 
-## Expansion Ports
+## 8. Expansion Ports
 
-### I2C Expansion Port
+### 8.1 I2C Expansion Port
 
 <img width="393" height="193" alt="image" src="https://github.com/user-attachments/assets/3180b292-49f2-43af-8788-13d0853a099f" />
 
@@ -222,7 +227,7 @@ These outputs supply 5 V, with current limiting and noise suppression to minim
 - 5.1 kΩ pull-ups on both lines.
 - 3.3 V logic.
 
-### UART Expansion Port
+### 8.2 UART Expansion Port
 
 <img width="366" height="163" alt="image" src="https://github.com/user-attachments/assets/40f2b42f-d1d8-4d75-8046-e5f6debfe717" />
 
@@ -230,11 +235,39 @@ These outputs supply 5 V, with current limiting and noise suppression to minim
 - Connects to ESP32-S3 UART0.
 - 3.3 V logic.
 
-### I/O Expansion Port
+### 8.3 I/O Expansion Port
 
 <img width="652" height="212" alt="image" src="https://github.com/user-attachments/assets/79f24ff3-e62b-472f-9213-88de0d125cde" />
 
 - Female pin header on the bottom side.
 - Exposes various I/O and power pins for add-on board development.
+
+---
+
+## 9. Tasmota Core
+
+<img width="849" height="524" alt="image" src="https://github.com/user-attachments/assets/f404164e-f9f0-4ccd-845c-c2cbfdd6e18f" />
+
+The GoGo Board uses a second MCU as a co-processor: the ESP32-C3.  
+There is a dedicated 3.3 V power regulator for the C3 and its peripherals.  
+A second USB-C port connects to the ESP32-C3's USB interface for firmware downloads.  
+The C3 comes preloaded with a USB bootloader and works with tools like Arduino IDE.
+
+By default, this MCU is flashed with the [Tasmota](https://tasmota.github.io) IoT framework, enabling support for [a wide range of sensors and actuators](https://tasmota.github.io/docs/Supported-Peripherals/).
+
+Users must configure Tasmota to use the pins exposed via three Grove ports.  
+Other custom firmware can also be used, as the ESP32-C3 features built-in USB.
+
+### 9.1 GPIO Ports
+
+<img width="294" height="366" alt="image" src="https://github.com/user-attachments/assets/94563ff5-1bbd-4cfb-9759-a8fd37d2c003" />
+
+There are two green Grove ports that expose two GPIOs each.
+
+### 9.2 I2C Port
+
+<img width="314" height="170" alt="image" src="https://github.com/user-attachments/assets/662d0d71-d0d9-4275-b125-e2deffde00f3" />
+
+This purple Grove port exposes the I2C bus.
 
 ---
