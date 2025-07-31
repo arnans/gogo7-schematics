@@ -216,7 +216,7 @@ Motor drivers are controlled by an I2C PWM chip (TLC59116IRHBR) due to limited E
 
 **Pull-up resistors:**  
 DRV8837 features weak internal pull-downs (~100 kΩ, see datasheet 7.3.3).  
-As the I2C PWM driver is open-drain (logic low only), external 5.1 kΩ pull-ups are used to ensure a strong logic high.
+As the I2C PWM driver is open-drain (logic low only), external 10 kΩ pull-ups are used to ensure a strong logic high.
 
 ### 7.2 The TLC59116IRHBR I2C PWM Driver
 
