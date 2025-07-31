@@ -1,6 +1,7 @@
-# GoGo Board Version 7 Schematics
+# GoGo Board Version 7 Schematics Documentation
+Arnan (Roger) Sipitakiat, Chiang Mai University, Thailand.
 
-Schematic description of the GoGo Board 7 hardware.
+
 
 <img src="images/ESP32-S3%20GoGo7%20Pinout.png" width="500">
 
@@ -87,7 +88,19 @@ Different resistor values generate unique voltages for each direction, read by t
 <img src="images/joystick.png" width="400">
 
 A 5.1 kΩ pull-up resistor keeps GPIO4 high when inactive.  
-Each direction uses a distinct pull-down resistor, forming a voltage divider for unique ADC readings.
+Each direction uses a distinct pull-down resistor, forming a voltage divider for unique ADC readings. The following table shows an approximation of the values.
+
+
+| Pad    | Pull-down Resistance | ADC Value (10 bit, Calc.) | Actual ADC Value (Alpha 1 dev board) |
+|--------|---------------------|---------------------------|--------------------------------------|
+| Idle   | —                   | 1023                      | 1023                                 |
+| A (Up) | 1 kΩ                | 168                       | 150–160                              |
+| B (Left) | 5.1 kΩ            | 512                       | 490–500                              |
+| C (Down) | 11 kΩ             | 699                       | 660–690                              |
+| D (Right) | 22 kΩ            | 831                       | 810–830                              |
+| Center (Press) | 0           | 0                         | 0                                    |
+
+
 
 ---
 
