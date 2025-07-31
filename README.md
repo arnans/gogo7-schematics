@@ -146,3 +146,33 @@ The GoGo Board 7 has five built-in sensors, four of which are connected via an I
 <img width="848" height="369" alt="image" src="https://github.com/user-attachments/assets/fba83c2d-6a8e-40df-afee-5994e43496e9" />
 
 - IR LED with a narrow 15-degree beam angle for directional transmission.
+
+
+## DC Motor Port ##
+
+The GoGo Board offers 4 built-in DC Motor ports, each with its own dedicated H-bridge driver (DRV8837) capabile of delivering 1.8 A (5V) peak current each. Our lab test suggests that current should not exceed 1 A to prevent over heating. The driver has built-in over current and over-heating cutoffs. Note that typical USB power sources can't usually supply enoughh current to drive all ports at full load. 
+
+Since the ESP32-S3 has limited GPIO pins, we use an i2c PWM driver chip (TLC59116IRHBR) to drive the h-bridge chips.
+
+### The DRV8837 Driver Circuit ###
+
+<img width="802" height="378" alt="image" src="https://github.com/user-attachments/assets/2afb4a5d-ceb5-4a2b-bbf6-b54aaeae0308" />
+
+**Drive Pins**. Each port requires 3 drive pins:
+- Enable - Enables the chip.
+- IN1 , IN2 - Controls the output state and polarity. Consult the datasheet for more information.
+
+**Pull-up Resistors**. 
+The DRV8837 h-bridge chip has a weak pull down on each control pin (about 100 kOhms according to the datasheet section 7.3.3). Since we are using an I2C PWM driver chip (see below) to control these h-bridge chips, and the PWM driver is drain-only (drives to logic low), we use a much stronger 5.1 kOhm pull-up on these lines which is enough to pull them to logic “1”.
+
+### The TLC59116IRHBR I2C PWM Driver ###
+
+<img width="972" height="431" alt="image" src="https://github.com/user-attachments/assets/11f2270a-5c78-4bba-b849-c971ad54590b" />
+
+- This i2c PWM driver has 16 channels. 
+  - 12 pins are used to drive the 4 h-bridge chips. 
+  - 2 pins are used to programatically put the ESP32-C3 in bootloader mode (C3-BOOT, C3-RESET).
+  - 2 pins are unused.
+- The RESET pin is connected to the ESP32-S3 GPIO (M_RESET). This allows the ESP32-S3 to reboot the PWM chip if needed. The GoGo firmware currently does not use this ability as the PWM chip has been very reliable.
+  
+  
